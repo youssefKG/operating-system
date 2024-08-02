@@ -114,3 +114,7 @@ swapped in, by the medium-term scheduler. Swapping may be necessary to improve
 the process mix or because a change in memory requirements has overcommitted
 available memory, requiring memory to be freed up. Swapping is discussed in 
 
+## Context switch 
+Switching the CPU to another process requires performing a state save of
+the current process and a state restore of a different process. This task is known
+as a context switch.
