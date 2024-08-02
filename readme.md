@@ -43,11 +43,13 @@ struct mm struct *mm; /* address space of this process */
 ## shceduling queues 
 
 - **Job Queue**: all the proceesses in the system.
-- **Ready Queue*: all the processes are residing in main memory and are ready
+- **Ready Queue** : all the processes are residing in main memory and are ready
   and waiting to execute are kept on list
-- **Device queue**: the list of processes that wainting for particular I/O Device.
+- **Device queue** : the list of processes that wainting for particular I/O Device.
 
-A process is initialy put in ready queue it waits there until it is selected for execution, one the process is allocated the cpu is executing , one of several could occur: 
+A process is initialy put in ready queue it waits there until it is selected
+for execution, one the process is allocated the cpu is executing , one of
+several events could occur: 
 
 - the process could issue and I/O request and thene be palced in an I/O queue.
 - the process could create new child process and wait for the child's termination.
@@ -60,22 +62,55 @@ cycle until it terminates, at which time it is removed from all queues and has
 its PCB and resources deallocated.
 
 ## Shedulers 
-proce migrate among various scheduling queues throughout its lifetime.
-### process schdulers in  batch system: 
+process migrate among various scheduling queues throughout its lifetime.
+### process types: 
+- **I/Or-bound process**: is one the spend more of his time doing I/O than spends doing computations.
+- **CPU-bound process**: is contrast generates I/O requests infrequently, using
+  more of its time doing computations.<br>
+
+### shedulers type: 
+- **long-term-schedular**: his job is load a program from disk to ready queue main memory and responsable of multiprogramming degree(balance between I/O-bound process and CPU-process)
+- **short-term-schedular(CPU-schedular)**: responsable from select among the process are ready to execute and allocate the CPU to one of them.
+- ** the medium-term-schedular**: swap between processes between main memory and disk.
+
+### shedulars approach
+#### process schdulers approach in batch system:  
 in batch systme, more prosesses are submitted than can be executed immediately.
 these processes are spooled to mass storage device (disk) where they are kept
 for later execution. **the long-term-scheduler** selects processes that are
 ready in storage device and loads theme to memory for execution. **The
 Short-term-scheduler** or **CPU sheduler** select among from among the
-processes that are ready to execute and allocate the CPU to one of them.
+processes that are ready to execute and allocate the CPU to one of them.<br>
 the **CPU sheduler (the short-term-scheduler)**  must select a process from memory and put in execution
-and may execute for only few milliseconds.
+and may execute for only few milliseconds. <br>
 the **long-term-sheduler** executes much less frequently; minutes may separate
 the creation of one new processthe long term-scheduler control **the degre of
 multiprogramming**(the number of process in memory )  if the **degree of
 multuprogramming** is stable then average rate of process creation creation
-must be equal to average departure rate of processes leaving the system. thus
+must be equal to average departure rate of processes leaving the system. the
 the long-term shceduler may need to be invoked only when a process leaves the
-system.
+system.<br>
+It's imporatant for the **long-term-sheduler** to select the good mix process of CPU-bound and I/O-bound.
+if all process in memory are I/O bound the ready queue will be almost aways empty and the short-term-schedularwill have a littel to do.<br>
+if all process are **CPU-bound process** the I/O waiting queue(divice queue) will be almost always be empty, divexes will go unused, and again the system will be unbulanced. <br>
+the system with the best perforamnce will thus have combination of CPU-bound and I/O-bound processes.
 
+
+#### process shedulers OS(linux, windows)
+the long-term-schedular maybe absent or minimal in linux and windows
+time-sharing systems they have no long the long-term-schedular. they put every
+new process in memory for the short-term-schedular. the stabilty of this system
+depend on physicall limitation or the self adjusting nature of human users.
+
+#### proceess approach of some others OS (swaping approach)
+Some operating systems, such as time-sharing systems, may introduce an
+additional, intermediate level of scheduling. This medium-term scheduler The
+key idea behind a medium-term scheduler is that sometimes it can be
+advantageous to remove a process from memory (and from active contention for
+the CPU) and thus reduce the degree of multiprogramming. Later, the process can
+be reintroduced into memory, and its execution can be continued where it left
+off. This scheme is called swapping. The process is swapped out, and is later
+swapped in, by the medium-term scheduler. Swapping may be necessary to improve
+the process mix or because a change in memory requirements has overcommitted
+available memory, requiring memory to be freed up. Swapping is discussed in 
 
