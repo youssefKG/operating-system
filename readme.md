@@ -118,3 +118,12 @@ available memory, requiring memory to be freed up. Swapping is discussed in
 Switching the CPU to another process requires performing a state save of
 the current process and a state restore of a different process. This task is known
 as a context switch.
+
+## process Operations 
+### create procees 
+look at file createProcess.c
+
+## interprocess communication 
+1- **Shared-Memory Systemsi**: 
+
+
