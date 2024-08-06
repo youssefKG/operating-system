@@ -137,5 +137,4 @@ processes executing in the system.
 1- **Shared memory**:  a region of memory that is shared by cooperating processes is stablished
 2- **Message passing**: a communication take place by means of messages
 exchanged between the cooperating processes.
-
-<![IPC models](https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40hemanthchakravarthy%2Fthe-invisible-maestro-demystifying-inter-process-communication-ipc-6513287a7293&psig=AOvVaw04tFuTLduPwPlOuq1K7SfG&ust=1723060303294000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIDEyf6R4YcDFQAAAAAdAAAAABAE) 
+<img src= "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40hemanthchakravarthy%2Fthe-invisible-maestro-demystifying-inter-process-communication-ipc-6513287a7293&psig=AOvVaw04tFuTLduPwPlOuq1K7SfG&ust=1723060303294000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIDEyf6R4YcDFQAAAAAdAAAAABAE"/>
