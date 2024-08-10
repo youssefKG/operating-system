@@ -136,5 +136,6 @@ processes executing in the system.
 ### models of interprocess communication 
 1- **Shared memory**:  a region of memory that is shared by cooperating processes is stablished
 2- **Message passing**: a communication take place by means of messages
+
 exchanged between the cooperating processes.
 <img src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbUprUZGEJq_OI9h63r2qaVvok4NYDoAQrKA&s"/>

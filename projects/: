@@ -1,0 +1,26 @@
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <wait.h>
+#include <string.h>
+
+void getString(char *s){
+  int i =0;
+  char c; 
+
+  while(c != '\n'){
+    scanf("%c", &c);
+    s[i] = c; 
+    i++;
+    s = (char *)realloc(s, (i + 1) * sizeof(char));
+  }
+
+  s[i] = '\0'; 
+}
+
+int main(){
+  char* s;
+  s = (char*)malloc(sizeof(char));
+  return 0;
+}
