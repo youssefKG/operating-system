@@ -12,24 +12,23 @@ typedef struct {
 } Parametres;
 
 int sudoku[SIZE][SIZE] = {
-    {5, 1, 4, 6, 7, 8, 9, 1, 2}, {6, 7, 2, 1, 9, 5, 3, 4, 8},
+    {5, 3, 4, 6, 7, 8, 9, 1, 2}, {6, 7, 2, 1, 9, 5, 3, 4, 8},
     {1, 9, 8, 3, 4, 2, 5, 6, 7}, {8, 5, 9, 7, 6, 1, 4, 2, 3},
     {4, 2, 6, 8, 5, 3, 7, 9, 1}, {7, 1, 3, 9, 2, 4, 8, 5, 6},
     {9, 6, 1, 5, 3, 7, 2, 8, 4}, {2, 8, 7, 4, 1, 9, 6, 3, 5},
     {3, 4, 5, 2, 8, 6, 1, 7, 9}};
 
 void *validateRow(void *args) {
-  int *result = malloc(sizeof(int));
-  int row = *(int *)args;
-  int j;
+  int row = *(int *)args;            // row index
+  int *result = malloc(sizeof(int)); //  the row is inlvalid if the result =
+                                     //  0 and valid result if result = 1
+  int validators[10] = {0};
   *result = 1;
 
   for (int i = 0; i < 9; i++) {
-    for (j = 0; j < 9; j++)
-      if (sudoku[row][j] == i + 1)
-        break;
-
-    if (j == 9) {
+    int value = sudoku[row][i];
+    validators[value]++;
+    if (validators[value] > 1) {
       *result = 0;
       break;
     }
@@ -38,19 +37,19 @@ void *validateRow(void *args) {
   return (void *)result;
 }
 
+// validate columns
 void *validateColumns(void *args) {
   int *result = malloc(sizeof(int));
   int col = *(int *)args;
-  int increment = 0;
   *result = 1;
 
-  int j;
-  for (int i = 0; i < 9; i++) {
-    for (j = 0; j < 9; j++)
-      if (sudoku[j][col] == i + 1)
-        break;
+  int validators[10] = {0};
 
-    if (j >= 9) {
+  for (int i = 0; i < 9; i++) {
+    int value = sudoku[i][col];
+    validators[value]++;
+
+    if (validators[value] > 1) {
       *result = 0;
       break;
     }
@@ -114,7 +113,6 @@ int main() {
   }
 
   for (int i = 0; i < 9; i++) {
-    printf("hello %d\n", i);
     int *res = malloc(sizeof(int));
     int *rowRes = malloc(sizeof(int));
     int *colRes = malloc(sizeof(int));
@@ -122,19 +120,19 @@ int main() {
     pthread_join(threads[i + 9], (void **)&colRes);
     pthread_join(gridThreads[i], (void **)&res);
 
-    printf(" grid : %d \n", *res);
-    printf(" row  : %d \n", *rowRes);
-    printf(" col  : %d \n", *rowRes);
+    // if any of the threads return invalid row or column or thread
     if (*rowRes == 0 || *rowRes == 0 || *res == 0) {
       printf("invalid soduko");
       free(rowRes);
       free(colRes);
       return 1;
     }
+
     free(rowRes);
     free(res);
     free(colRes);
   }
+
   printf("valid soduko \n");
   return 0;
 }

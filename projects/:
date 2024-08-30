@@ -1,0 +1,15 @@
+#include <bits/pthreadtypes.h>
+#include <pthread.h>
+#include <stdlib.h>
+
+#define SIZE 12
+
+int main() {
+
+  int list[SIZE] = {23, 12, 56, 0, 45, 66, 34, 56, 11, 56, 775, 2};
+  int sortedList[SIZE];
+  pthread_t sortingThreads[2];
+  pthread_t mergeThread;
+
+  return 0;
+}
