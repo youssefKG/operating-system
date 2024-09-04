@@ -15,12 +15,12 @@ pthread_mutex_t roomMutex;
 
 void *teacherRoutine(void *args) {
   while (1) {
-    if (countStudent == STUDENT_NUM) {
+    if (countStudent == STUDENT_NUM - 1) {
       break;
     }
     if (availableChairs != 0) {
-      sem_wait(&t_a_sem);
       printf("start teaching student \n");
+      sem_wait(&t_a_sem);
     }
   }
   return NULL;
@@ -37,16 +37,21 @@ void *studentRoutine(void *args) {
   sem_wait(&chairs_sem);
   pthread_mutex_lock(&roomMutex);
 
-  printf("the student number %d start studing programing sleepingTA.cfor %d "
+  availableChairs++;
+  printf("the student number %d start studing programing for %d "
          "seconds \n",
          *n, timeStudying);
+
   sem_post(&t_a_sem);
+
   sleep(timeStudying);
+
   printf("the student number %d end his programming session with teacher "
          "assistant\n",
          *n);
   countStudent++;
-  // pthread_mutex_unlock(&roomMutex);
+  availableChairs--;
+  pthread_mutex_unlock(&roomMutex);
   sem_post(&chairs_sem);
 
   free(n);
